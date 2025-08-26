@@ -2,6 +2,7 @@
 Rutas de Usuarios/auth
 host + /api/auth
 */
+const path = require('path')
 
 const express = require('express')
 const { dbConnection } = require('./database/config')
@@ -30,6 +31,9 @@ app.use('/api/auth', require('./routes/auth')) // esto significa que todo lo que
 //TODO: CRUD: Eventos
 app.use('/api/events', require('./routes/events'))
 
+app.use('/{*splat}', (req, res) => {
+   res.sendFile( path.join(__dirname, 'public/index.html'))
+})
 //Escuchar peticiones
 app.listen(process.env.PORT, () => {
    console.log(`Corriendo en el puerto ${ process.env.PORT }`)
